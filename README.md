@@ -12,7 +12,7 @@ Problem Domain: There is a need for an app that will allow a user to input the n
 
 ## Architecture
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
-[Lab06 Web Request-Response Cycle](/Lab06%20WRRC.png)
+![Lab06 Web Request-Response Cycle](/Lab06%20WRRC.png)
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
