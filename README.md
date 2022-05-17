@@ -20,10 +20,14 @@ test
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 05-16-2022 2:12pm - Updated README.md
+05-16-2022 5:10pm - Application updated with an input form and a table to display the chosen city's coordinates
+05-16-2022 6:40pm - App now has the ability to render the map to the page
+05-16-2022 7:45pm - Added a Bootstrap element to house the map portion, and modified CSS to clean up the appearance a bit
 
 ## Credit and Collaborations
 
-I collaborated with Elizabeth Hammes to map out the WRRC on Miro
+I collaborated with Elizabeth Hammes to map out the WRRC on Miro.
+I received help from Katharine Swilley, Ben Small, and Sam Brindle on rendering the map to the page.
 
 ## Lab 06 - Asynchronous Code and APIs
 
@@ -33,6 +37,6 @@ Estimate of time needed to complete: 3 hours
 
 Start time: 1:55pm
 
-Finish time:
+Finish time: 7:45pm
 
-Actual time needed to complete:
+Actual time needed to complete: 6 hours so far, but I still have some work to do
