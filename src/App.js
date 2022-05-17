@@ -12,23 +12,22 @@ class App extends React.Component {
       city: '',
       cityLat: '',
       cityLon: '',
+      showMap: false
     }
   }
 
   handleCitySubmit = async (e) => {
     e.preventDefault();
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${this.state.city}&format=json`;
-    console.log(this.state.city);
     let cityInfo = await axios.get(url);
 
-    console.log(cityInfo.data[0]);
-    console.log(cityInfo.data[0].lat);
-    console.log(cityInfo.data[0].lon);
     this.setState({
       cityName: cityInfo.data[0].display_name,
       cityLat: cityInfo.data[0].lat,
-      cityLon: cityInfo.data[0].lon
+      cityLon: cityInfo.data[0].lon,
+      showMap: true
     });
+
   }
 
   cityChange = (e) => {
@@ -67,6 +66,10 @@ class App extends React.Component {
             </tr>
           </tbody>
         </Table>
+        {this.state.showMap ?
+          <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=10`} alt="Map of chosen city" /> :
+          null
+        }
       </>
     );
   }
