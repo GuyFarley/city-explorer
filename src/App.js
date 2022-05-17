@@ -2,7 +2,7 @@ import './App.css';
 import axios from 'axios';
 import React from 'react';
 import Table from 'react-bootstrap/Table'
-
+import Figure from 'react-bootstrap/Figure'
 
 class App extends React.Component {
 
@@ -67,9 +67,17 @@ class App extends React.Component {
           </tbody>
         </Table>
         {this.state.showMap ?
-          <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=10`} alt="Map of chosen city" /> :
-          null
-        }
+          <Figure>
+            <Figure.Image
+              width={400}
+              height={400}
+              alt="Map of {this.state.cityName}"
+              src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=12`}
+            />
+            <Figure.Caption>
+              {this.state.cityName}
+            </Figure.Caption>
+          </Figure> : null}
       </>
     );
   }
