@@ -12,7 +12,8 @@ class App extends React.Component {
       city: '',
       cityLat: '',
       cityLon: '',
-      showMap: false
+      showMap: false,
+      showWeather: false
     }
   }
 
@@ -21,11 +22,17 @@ class App extends React.Component {
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${this.state.city}&format=json`;
     let cityInfo = await axios.get(url);
 
+    let weatherURL = `${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.city}`;
+    console.log(weatherURL);
+    let weather = await axios.get(weatherURL);
+    console.log(weather);
+
     this.setState({
       cityName: cityInfo.data[0].display_name,
       cityLat: cityInfo.data[0].lat,
       cityLon: cityInfo.data[0].lon,
-      showMap: true
+      showMap: true,
+      showWeather: true
     });
 
   }
@@ -78,6 +85,7 @@ class App extends React.Component {
               {this.state.cityName}
             </Figure.Caption>
           </Figure> : null}
+
       </>
     );
   }
