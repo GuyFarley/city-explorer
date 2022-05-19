@@ -19,6 +19,8 @@ class App extends React.Component {
       cityLat: '',
       cityLon: '',
       weatherData: [],
+      movieData: [],
+      error: false,
       showMap: false,
       showTable: false,
       showWeather: false
@@ -34,9 +36,7 @@ class App extends React.Component {
       // let weatherURL = `${process.env.REACT_APP_SERVER}/weather?latitude=${cityInfo.data[0].lat}&longitude=${cityInfo.data[0].lon}`;
       let weatherURL = `https://gf-city-explorer-301d85.herokuapp.com/weather?latitude=${cityInfo.data[0].lat}&longitude=${cityInfo.data[0].lon}`;
 
-      console.log(weatherURL);
       let weather = await axios.get(weatherURL);
-      console.log(weather);
 
       this.setState({
         cityName: cityInfo.data[0].display_name,
@@ -45,14 +45,34 @@ class App extends React.Component {
         weatherData: weather,
         showMap: true,
         showTable: true,
-        showWeather: true
+        showWeather: true,
+        error: false
       });
     } catch (error) {
       this.setState({
         error: true,
         errorMessage: error.message
       })
+    }
 
+    try {
+
+      let movieURL = `${process.env.REACT_APP_SERVER}/movies?movie_city=${this.state.city}`;
+      // let movieURL = `https://gf-city-explorer-301d85.herokuapp.com/movies?movie_city=${this.state.city}`;
+      console.log(movieURL);
+      let movies = await axios.get(movieURL);
+      console.log(movies);
+
+      this.setState({
+        movieData: movies,
+        error: false
+      });
+
+    } catch (error) {
+      this.setState({
+        error: true,
+        errorMessage: error.message
+      })
     }
   }
 
@@ -77,7 +97,11 @@ class App extends React.Component {
           <Row className="align-items-center">
             <Col xs="auto">
               <Form.Label htmlFor="inputCity">Please enter a city name</Form.Label>
-              <Form.Control type="text" id="inputCity" onChange={this.cityChange} />
+              <Form.Control
+                type="text"
+                id="inputCity"
+                onChange={this.cityChange}
+              />
               <Button variant="primary" type="submit">Explore!</Button>
             </Col>
           </Row>
