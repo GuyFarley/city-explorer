@@ -31,8 +31,8 @@ class App extends React.Component {
       let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${this.state.city}&format=json`;
       let cityInfo = await axios.get(url);
 
-      // let weatherURL = `${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.city}`;
-      let weatherURL = `https://gf-city-explorer-301d85.herokuapp.com/weather?city_name=${this.state.city}`;
+      // let weatherURL = `${process.env.REACT_APP_SERVER}/weather?latitude=${cityInfo.data[0].lat}&longitude=${cityInfo.data[0].lon}`;
+      let weatherURL = `https://gf-city-explorer-301d85.herokuapp.com/weather?latitude=${cityInfo.data[0].lat}&longitude=${cityInfo.data[0].lon}`;
 
       console.log(weatherURL);
       let weather = await axios.get(weatherURL);
@@ -52,12 +52,14 @@ class App extends React.Component {
         error: true,
         errorMessage: error.message
       })
+
     }
   }
 
   cityChange = (e) => {
     this.setState({
       city: e.target.value
+
     });
   }
 
