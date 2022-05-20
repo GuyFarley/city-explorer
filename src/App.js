@@ -101,7 +101,6 @@ class App extends React.Component {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
                 type="text"
-                id="inputCity"
                 placeholder="Please enter city name"
                 onChange={this.cityChange}
               />
