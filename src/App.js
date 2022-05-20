@@ -1,5 +1,6 @@
 import './App.css';
 import Weather from './Weather.js'
+import Movie from './Movies.js'
 import axios from 'axios';
 import React from 'react';
 import Table from 'react-bootstrap/Table'
@@ -23,7 +24,8 @@ class App extends React.Component {
       error: false,
       showMap: false,
       showTable: false,
-      showWeather: false
+      showWeather: false,
+      showMovies: false
     }
   }
 
@@ -56,16 +58,15 @@ class App extends React.Component {
     }
 
     try {
-
-      let movieURL = `${process.env.REACT_APP_SERVER}/movies?movie_city=${this.state.city}`;
-      // let movieURL = `https://gf-city-explorer-301d85.herokuapp.com/movies?movie_city=${this.state.city}`;
+      // let movieURL = `${process.env.REACT_APP_SERVER}/movies?movie_city=${this.state.city}`;
+      let movieURL = `https://gf-city-explorer-301d85.herokuapp.com/movies?movie_city=${this.state.city}`;
       console.log(movieURL);
       let movies = await axios.get(movieURL);
       console.log(movies);
 
       this.setState({
         movieData: movies,
-        error: false
+        showMovies: true,
       });
 
     } catch (error) {
@@ -79,79 +80,95 @@ class App extends React.Component {
   cityChange = (e) => {
     this.setState({
       city: e.target.value
-
     });
   }
 
   render() {
 
     return (
-      <>
+      <div className='appBody'>
         {this.state.error ?
           <Alert key={'danger'} variant={'danger'}>
             {this.state.errorMessage}
           </Alert>
           : null}
+        <div className="h1">
+          <h1>City Explorer</h1>
+        </div>
+        <div className="formClass">
 
-        <Form onSubmit={this.handleCitySubmit}>
-          <Row className="align-items-center">
-            <Col xs="auto">
-              <Form.Label htmlFor="inputCity">Please enter a city name</Form.Label>
+          <Form onSubmit={this.handleCitySubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
                 type="text"
                 id="inputCity"
+                placeholder="Please enter city name"
                 onChange={this.cityChange}
               />
               <Button variant="primary" type="submit">Explore!</Button>
-            </Col>
-          </Row>
-        </Form>
 
+            </Form.Group>
+          </Form>
+        </div>
         {
           this.state.showTable ?
-            <Table
-              striped
-              bordered
-              hover>
-              <thead>
-                <tr>
-                  <th>City Name</th>
-                  <th>Latitude</th>
-                  <th>Longitude</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{this.state.cityName}</td>
-                  <td>{this.state.cityLat}</td>
-                  <td>{this.state.cityLon}</td>
-                </tr>
-              </tbody>
-            </Table> : null
+            <div className="cityTable">
+
+              <Table
+                striped
+                bordered
+                hover>
+                <thead>
+                  <tr>
+                    <th>City Name</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{this.state.cityName}</td>
+                    <td>{this.state.cityLat}</td>
+                    <td>{this.state.cityLon}</td>
+                  </tr>
+                </tbody>
+              </Table></div> : null
         }
         {
           this.state.showMap ?
-            <Figure>
-              <Figure.Image
-                width={400}
-                height={400}
-                alt="Map of {this.state.cityName}"
-                src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=12`}
-              />
-              <Figure.Caption>
-                {this.state.cityName}
-              </Figure.Caption>
-            </Figure> : null
+            <div className="cityMap">
+
+              <Figure>
+                <Figure.Image
+                  width={400}
+                  height={400}
+                  alt="Map of {this.state.cityName}"
+                  src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=12`}
+                />
+                <Figure.Caption>
+                  {this.state.cityName}
+                </Figure.Caption>
+              </Figure></div> : null
         }
         {
           this.state.showWeather ?
-            <Weather
-              city={this.state.city}
-              cityLat={this.state.cityLat}
-              cityLon={this.state.cityLon}
-              weather={this.state.weatherData}
-            /> : null}
-      </>
+            <div className="cityWeather">
+
+              <Weather
+                city={this.state.city}
+                cityLat={this.state.cityLat}
+                cityLon={this.state.cityLon}
+                weather={this.state.weatherData}
+              /></div> : null}
+        {
+          this.state.showMovies ?
+            <div className="cityMovies">
+
+              <Movie
+                movies={this.state.movieData}
+              /></div> : null
+        }
+      </div>
     );
   }
 }
