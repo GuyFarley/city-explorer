@@ -24,9 +24,9 @@ class Weather extends React.Component {
           {this.props.weather.data.map((day, idx) => {
             return (
               <tr key={idx}>
-                <td>{this.props.weather.data[idx].date}</td>
-                <td>{this.props.weather.data[idx].temp}</td>
-                <td>{this.props.weather.data[idx].description}</td>
+                <td>{this.props.weather.data.date}</td>
+                <td>{this.props.weather.data.temp}</td>
+                <td>{this.props.weather.data.description}</td>
               </tr>
             )
           })}

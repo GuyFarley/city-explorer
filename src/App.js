@@ -53,9 +53,10 @@ class App extends React.Component {
   getWeather = async (lat, lon) => {
     try {
 
-      // let weatherURL = `${process.env.REACT_APP_SERVER}/weather?latitude=${lat}&longitude=${lon}`;
-      let weatherURL = `https://gf-city-explorer-301d85.herokuapp.com/weather?latitude=${lat}&longitude=${lon}`;
+      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?latitude=${lat}&longitude=${lon}`;
+      // let weatherURL = `https://gf-city-explorer-301d85.herokuapp.com/weather?latitude=${lat}&longitude=${lon}`;
       let weather = await axios.get(weatherURL);
+      console.log(weather);
 
       this.setState({
         weatherData: weather,
@@ -74,8 +75,8 @@ class App extends React.Component {
 
   getMovies = async () => {
     try {
-      // let movieURL = `${process.env.REACT_APP_SERVER}/movies?movie_city=${this.state.city}`;
-      let movieURL = `https://gf-city-explorer-301d85.herokuapp.com/movies?movie_city=${this.state.city}`;
+      let movieURL = `${process.env.REACT_APP_SERVER}/movies?movie_city=${this.state.city}`;
+      // let movieURL = `https://gf-city-explorer-301d85.herokuapp.com/movies?movie_city=${this.state.city}`;
       let movies = await axios.get(movieURL);
 
       this.setState({
