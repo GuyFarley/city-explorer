@@ -15,22 +15,22 @@ class Weather extends React.Component {
         <thead>
           <tr>
             <th>Date</th>
+            <th>High Temp</th>
             <th>Forecast</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>{this.props.weather.data[0].date}</td>
-            <td>{this.props.weather.data[0].description}</td>
-          </tr>
-          <tr>
-            <td>{this.props.weather.data[1].date}</td>
-            <td>{this.props.weather.data[1].description}</td>
-          </tr>
-          <tr>
-            <td>{this.props.weather.data[2].date}</td>
-            <td>{this.props.weather.data[2].description}</td>
-          </tr>
+
+          {this.props.weather.data.map((day, idx) => {
+            return (
+              <tr key={idx}>
+                <td>{this.props.weather.data[idx].date}</td>
+                <td>{this.props.weather.data[idx].temp}</td>
+                <td>{this.props.weather.data[idx].description}</td>
+              </tr>
+            )
+          })}
+
         </tbody>
       </Table>
     );
