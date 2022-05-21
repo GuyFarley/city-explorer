@@ -19,7 +19,6 @@ class Weather extends React.Component {
           </tr>
         </thead>
         <tbody>
-
           {this.props.weather.data.map((day, idx) => {
             return (
               <tr key={idx}>
@@ -29,7 +28,6 @@ class Weather extends React.Component {
               </tr>
             )
           })}
-
         </tbody>
       </Table>
     );
