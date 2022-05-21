@@ -55,7 +55,6 @@ class App extends React.Component {
 
       // let weatherURL = `${process.env.REACT_APP_SERVER}/weather?latitude=${lat}&longitude=${lon}`;
       let weatherURL = `https://gf-city-explorer-301d85.herokuapp.com/weather?latitude=${lat}&longitude=${lon}`;
-
       let weather = await axios.get(weatherURL);
 
       this.setState({
@@ -64,6 +63,7 @@ class App extends React.Component {
         showWeather: true,
         error: false
       });
+
     } catch (error) {
       this.setState({
         error: true,
@@ -76,7 +76,6 @@ class App extends React.Component {
     try {
       // let movieURL = `${process.env.REACT_APP_SERVER}/movies?movie_city=${this.state.city}`;
       let movieURL = `https://gf-city-explorer-301d85.herokuapp.com/movies?movie_city=${this.state.city}`;
-
       let movies = await axios.get(movieURL);
 
       this.setState({
@@ -84,6 +83,7 @@ class App extends React.Component {
         showMovies: true,
         error: false
       });
+
     } catch (error) {
       this.setState({
         error: true,
@@ -96,12 +96,14 @@ class App extends React.Component {
     e.preventDefault();
     try {
       this.getCity();
+
     } catch (error) {
       this.setState({
         error: true,
         errorMessage: error.message
       })
     }
+
     this.getMovies();
   }
 
@@ -123,8 +125,8 @@ class App extends React.Component {
         <div className="h1">
           <h1>City Explorer</h1>
         </div>
-        <div className="formClass">
 
+        <div className="formClass">
           <Form onSubmit={this.handleCitySubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
