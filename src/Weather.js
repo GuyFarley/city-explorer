@@ -3,7 +3,6 @@ import Table from 'react-bootstrap/Table'
 
 class Weather extends React.Component {
 
-
   render() {
 
     return (
@@ -24,9 +23,9 @@ class Weather extends React.Component {
           {this.props.weather.data.map((day, idx) => {
             return (
               <tr key={idx}>
-                <td>{this.props.weather.data[idx].date}</td>
+                <td>{this.props.weather.data[idx].time}</td>
                 <td>{this.props.weather.data[idx].temp}</td>
-                <td>{this.props.weather.data[idx].description}</td>
+                <td>{this.props.weather.data[idx].forecast}</td>
               </tr>
             )
           })}
