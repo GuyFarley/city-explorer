@@ -8,8 +8,6 @@ import Figure from 'react-bootstrap/Figure'
 import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 
 class App extends React.Component {
 
@@ -29,23 +27,39 @@ class App extends React.Component {
     }
   }
 
-  handleCitySubmit = async (e) => {
-    e.preventDefault();
+  getCity = async () => {
     try {
       let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${this.state.city}&format=json`;
       let cityInfo = await axios.get(url);
-
-      // let weatherURL = `${process.env.REACT_APP_SERVER}/weather?latitude=${cityInfo.data[0].lat}&longitude=${cityInfo.data[0].lon}`;
-      let weatherURL = `https://gf-city-explorer-301d85.herokuapp.com/weather?latitude=${cityInfo.data[0].lat}&longitude=${cityInfo.data[0].lon}`;
-
-      let weather = await axios.get(weatherURL);
 
       this.setState({
         cityName: cityInfo.data[0].display_name,
         cityLat: cityInfo.data[0].lat,
         cityLon: cityInfo.data[0].lon,
-        weatherData: weather,
         showMap: true,
+        error: false
+      });
+
+      this.getWeather(cityInfo.data[0].lat, cityInfo.data[0].lon);
+
+    } catch (error) {
+      this.setState({
+        error: true,
+        errorMessage: error.message
+      })
+    }
+  }
+
+  getWeather = async (lat, lon) => {
+    try {
+
+      // let weatherURL = `${process.env.REACT_APP_SERVER}/weather?latitude=${lat}&longitude=${lon}`;
+      let weatherURL = `https://gf-city-explorer-301d85.herokuapp.com/weather?latitude=${lat}&longitude=${lon}`;
+
+      let weather = await axios.get(weatherURL);
+
+      this.setState({
+        weatherData: weather,
         showTable: true,
         showWeather: true,
         error: false
@@ -56,25 +70,39 @@ class App extends React.Component {
         errorMessage: error.message
       })
     }
+  }
 
+  getMovies = async () => {
     try {
       // let movieURL = `${process.env.REACT_APP_SERVER}/movies?movie_city=${this.state.city}`;
       let movieURL = `https://gf-city-explorer-301d85.herokuapp.com/movies?movie_city=${this.state.city}`;
-      console.log(movieURL);
+
       let movies = await axios.get(movieURL);
-      console.log(movies);
 
       this.setState({
         movieData: movies,
         showMovies: true,
+        error: false
       });
-
     } catch (error) {
       this.setState({
         error: true,
         errorMessage: error.message
       })
     }
+  }
+
+  handleCitySubmit = async (e) => {
+    e.preventDefault();
+    try {
+      this.getCity();
+    } catch (error) {
+      this.setState({
+        error: true,
+        errorMessage: error.message
+      })
+    }
+    this.getMovies();
   }
 
   cityChange = (e) => {
